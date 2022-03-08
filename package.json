@@ -1,0 +1,37 @@
+{
+  "name": "express-notes",
+  "version": "0.1.0",
+  "description": "Notes on creation and usage of an express API server.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest",
+    "start": "nodemon index.js",
+    "dev": "NODE_ENV=development nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheMagicNacho/express-notes.git"
+  },
+  "keywords": [
+    "notes"
+  ],
+  "author": "TheMagicNacho",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TheMagicNacho/express-notes/issues"
+  },
+  "homepage": "https://github.com/TheMagicNacho/express-notes#readme",
+  "dependencies": {
+    "body-parser": "^1.19.2",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "jest": "^27.5.1",
+    "knex": "^1.0.3",
+    "nodemon": "^2.0.15",
+    "pg": "^8.7.3",
+    "postgres": "^1.0.2",
+    "supertest": "^6.2.2"
+  }
+}
