@@ -1,5 +1,6 @@
 # express-notes
 This document and repo is ment to serve as a guide and framework to building an API server.
+The syntax in this repo uses ES6 which is contrary to majority of the documentation.
 
 ## Features
 - API Routes
@@ -10,12 +11,11 @@ This document and repo is ment to serve as a guide and framework to building an 
 - Handle Cookies
 
 ## Packages to install
-```npm i postgres pg express body-parser cookie-parser knex nodemon supertest dotenv jest ```
+```npm i postgres pg express cookie-parser knex nodemon supertest dotenv jest ```
 
 - **postgres** allows for connection with postgres DB 
 - **nodemon** allows server to run as daemon
 - **express** the API framework to answer HTTP requests
-- **body-parser** parse bodies
 - **cookie-parser** parse cookies
 - **knex** connect API to DB
 - **superTest** allows testing with API
@@ -134,7 +134,7 @@ We must create a table before we can start adding data to it.
 5. Create the Database
 6. Configure testing
 7. Configure express
-8. Configure 
+8. Configure knex
 
 # REF
 https://dev.to/asteinarson/typescript-node-js-importing-knex-into-es6-module-1poc

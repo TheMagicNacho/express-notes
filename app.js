@@ -1,8 +1,11 @@
 /*
  * This file manages the routing for the API
+ * Basic functionality 
+ * 1) Simple get routing
+ * 2) Using params and cookies
+ * 3) Integrating SQL with knex
  */
 import express from 'express';
-import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import knex from 'knex';
 
@@ -10,16 +13,19 @@ import knex from 'knex';
 // TODO: make this based on environment variables in the future.
 import { development } from './knexfile.js';
 
+///////// ENVIRONMENT PREP //////////
 // this creates the express object as an app. We can call it something else if we use it later.
-// NOTE: enusre attache the body parser to the object.
+// NOTE: enusre attache the body parser and cookieParser to the object.
 const app = express();
-app.use(bodyParser.json());
+app.use(express.json());
+app.use(cookieParser());
 
 // instanciate a new knex object with the connection requirements attached.
 const localKnex = knex(development);
 
 
-// SIMPLE GET ROUTE
+///////// ACTUAL ROUTING //////////
+// 1) SIMPLE GET ROUTE
 // NOTE: When building a server from scratch, start here to ensure your connections are good.
 app.get('/', (req, res) => {
     // Must be included.
@@ -27,7 +33,7 @@ app.get('/', (req, res) => {
     res.send('Welcome to Nacho API');
 });
 
-// PARRAMS and COOKIES
+// 2) PARAMS AND COOKIES
 app.get('/login/:id', (req, res) => {
     const opts = {
         httpOnly: true,
@@ -51,7 +57,6 @@ app.get('/login/:id', (req, res) => {
 });
 
 // Consume the cookie
-app.use(cookieParser());
 app.get('/hello', (req, res)=>{
     // Simplify the cookie object to single var for DRY programing.
     const cookieObj = req.cookies.loginCookie;
@@ -60,11 +65,9 @@ app.get('/hello', (req, res)=>{
     console.log(`Greet: ${cookieObj.userId}`)
     // NOTE: The key in the object MUST match from when the cookie was created .
     res.send(`Hello, ${cookieObj.userId}`)
-    
-    
 });
 
-// Getting Data from SQL db
+// 3) INTEGRATING SQL
 app.get('/notes', (req, res) => {
     // use the newly created knex object since it has the connection data included.
     localKnex
