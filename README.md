@@ -1,4 +1,5 @@
 # express-notes
+This document and repo is ment to serve as a guide and framework to building an API server.
 
 ## Features
 - API Routes
@@ -74,14 +75,11 @@ syntax
 
     ```\c <db-name>```
 
-
-
 ### Nodemon
 
 - Add the following script to the packages.js
 
     ```"start": "nodemon index.js"```
-
 
 ### Jest
 - Change the package.json to allow JEST to use modules.
@@ -93,24 +91,52 @@ syntax
 
 ### Kenex
 *Note: this repo exposes the .env file for educational purposes. It is best practice to add .env to gitignore*
+
+ref: https://blog.shahednasser.com/knex-js-tutorial-for-beginners
 1. Init the repo
     
     ```npx knex init```
 
-2. postgres connection string format: ``` postgres://USER:PASS@HOST:PORT/DB_NAME```
+2. postgres connection string format: ``` postgres://USER:PASS@HOST:PORT/DB_NAME ```
 
-3. Create a migration:
-    ``` npx knex migrate: make MIGRATION_NAME ```
+#### Migrations
+Migrations are used to create or destroy schemas within tables. This makes the database more portable.
+We must create a table before we can start adding data to it.
 
+1. Create a migration template using knex.
 
+    ``` npx knex migrate:make MIGRATION_NAME ```
 
+2. Create your schema. See the example in the migration dir.
 
+3. Run your migration
+
+    ``` npx knex migrate:latest ```
+4. If you want to rollback
+
+    ``` npx knex migrate:rollback ```
+
+### Seeds
+1. Create a seed using knex.
+
+    ``` npx knex seed:make init_notes ```
+2. Create the seed. See the example in the seeds dir.
+3. Run the seed.
+
+    ``` npx knex seed:run ```
+4. Verify everything works by going to the postgres server and checking the tables
 
 ## Workflow
 1. Init the Repo
 2. Import required packages
 3. Create the index.js (this is the entry point)
 4. Create the app.js (this is the routing)
-5. Create Specs
+5. Create the Database
+6. Configure testing
+7. Configure express
+8. Configure 
 
+# REF
+https://dev.to/asteinarson/typescript-node-js-importing-knex-into-es6-module-1poc
 
+https://blog.shahednasser.com/knex-js-tutorial-for-beginners/#read-data-with-knexjs
