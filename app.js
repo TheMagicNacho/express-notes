@@ -7,6 +7,7 @@
  */
 import express from 'express';
 import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
 import knex from 'knex';
 
 // this reffrences the kenex file we created.
@@ -17,7 +18,7 @@ import { development } from './knexfile.js';
 // this creates the express object as an app. We can call it something else if we use it later.
 // NOTE: enusre attache the body parser and cookieParser to the object.
 const app = express();
-app.use(express.json());
+app.use(bodyParser.json());
 app.use(cookieParser());
 
 // instanciate a new knex object with the connection requirements attached.
@@ -86,7 +87,7 @@ app.get('/notes', (req, res) => {
 
 // Posting data to the SQL db
 app.post('/notes', (req, res) => {
-    console.log(JSON.stringify(req.body.title));
+    console.log(`New note titled ${JSON.stringify(req.body.title)} was entered`);
     // condition the user input
     const title = req.body.title ? req.body.title : '';
     const data = req.body.data ? req.body.data : '';
@@ -94,7 +95,6 @@ app.post('/notes', (req, res) => {
     if (!title) {
         return res.json({success: false, message: 'Title is required'});
     }
-
     // Call the knex object we created earlier.
     localKnex
         .insert({title, data})
