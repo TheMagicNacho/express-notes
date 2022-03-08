@@ -10,6 +10,18 @@ The syntax in this repo uses ES6 which is contrary to majority of the documentat
 - Environment Variables
 - Handle Cookies
 
+
+## Workflow
+1. Init the Repo
+2. Import required packages
+3. Create the index.js (this is the entry point)
+4. Create the app.js (this is the routing)
+5. Create the Database
+6. Configure testing
+7. Configure express
+8. Configure knex
+
+
 ## Packages to install
 ```npm i postgres pg express cookie-parser knex nodemon supertest dotenv jest ```
 
@@ -21,14 +33,6 @@ The syntax in this repo uses ES6 which is contrary to majority of the documentat
 - **superTest** allows testing with API
 - **jest** unit test suit
 - **dotenv** allows for usage of environment variables 
-
-
-
-## Snippits / Paterns
-### Params
-- in routes use ' : ' to denote variables
-- to consume the param ```req.params.<variable>```
-
 
 ## Configuration
 ### dotenv
@@ -126,15 +130,51 @@ We must create a table before we can start adding data to it.
     ``` npx knex seed:run ```
 4. Verify everything works by going to the postgres server and checking the tables
 
-## Workflow
-1. Init the Repo
-2. Import required packages
-3. Create the index.js (this is the entry point)
-4. Create the app.js (this is the routing)
-5. Create the Database
-6. Configure testing
-7. Configure express
-8. Configure knex
+
+## Snippits / Paterns
+### Params
+- in routes use ' : ' to denote variables
+- to consume the param ```req.params.<variable>```
+
+### Knex Object Instanciasion
+```js 
+const localKnex = knex(development); 
+```
+
+### Express Object Instanciasion
+```js 
+const app = express();
+app.use(express.json());
+app.use(cookieParser());
+```
+
+### Supertest snipit
+```js
+describe('Some feature', ()=>{
+    test('should do something', (done) => {
+        request(app)
+            .get('/route/to/somewhere/:id')
+            .expect(200)
+            .end((err, res) => {
+                if(err) throw err;
+                done();
+        })
+    });
+});
+```
+
+### Up Migration
+Inside of VS Code, after you type ```table.``` you can see all the methods available. These methods match the classic SQL query.
+```js
+export function up(knex) {
+  return knex.schema.createTable('notes_table', (table) => {
+    table.increments('id').notNullable;
+    table.string('title').notNullable();
+    table.string('data');
+    table.timestamps(true, true);
+  });
+}
+```
 
 # REF
 https://dev.to/asteinarson/typescript-node-js-importing-knex-into-es6-module-1poc
