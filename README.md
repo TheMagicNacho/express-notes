@@ -180,3 +180,7 @@ export function up(knex) {
 https://dev.to/asteinarson/typescript-node-js-importing-knex-into-es6-module-1poc
 
 https://blog.shahednasser.com/knex-js-tutorial-for-beginners/#read-data-with-knexjs
+
+https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
+
+https://jestjs.io/docs/ecmascript-modules
